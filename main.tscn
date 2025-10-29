@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=4 uid="uid://o7rxx66u0j2w"]
+[gd_scene load_steps=8 format=4 uid="uid://o7rxx66u0j2w"]
 
-[ext_resource type="Script" uid="uid://br0rik6olxs25" path="res://CPP/Main/Main.elf" id="2_7mycd"]
-[ext_resource type="Script" uid="uid://br0rik6olxs25" path="res://CPP/Main/Main.elf" id="2_272bh"]
+[ext_resource type="Script" uid="uid://dsry7gnbhpgq2" path="res://CPP/Main/Main.elf" id="2_272bh"]
 [ext_resource type="PackedScene" uid="uid://der21dg33n4g7" path="res://player.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://b07yyv7ig7ais" path="res://hud.tscn" id="4_1bvp3"]
-[ext_resource type="Script" uid="uid://brdiewpvgf2o7" path="res://CPP/Player/Player.elf" id="4_272bh"]
 [ext_resource type="AudioStream" uid="uid://c5iqupofpdakd" path="res://art/gameover.wav" id="5_lquwl"]
 
 [sub_resource type="Curve2D" id="Curve2D_1bvp3"]
@@ -31,7 +29,7 @@ tags = {
 loop = true
 
 [node name="Main" type="Node"]
-script = ExtResource("2_7mycd")
+script = ExtResource("2_272bh")
 "mob scene" = "mob.tscn"
 references_max = 100
 memory_max = 16
@@ -58,7 +56,6 @@ position = Vector2(240, 450)
 
 [node name="Player" parent="." instance=ExtResource("2_h2yge")]
 speed = 400.0
-program = ExtResource("4_272bh")
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 2.0
