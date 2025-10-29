@@ -1,0 +1,10 @@
+CompileFlags:
+  Add:
+    - "--gcc-toolchain=/usr"
+    - "-DCLANGD"
+    - "-IREPLACEMENT/cmake/.build"
+    - "-IREPLACEMENT/cmake/.build/_deps/godot-sandbox-src/program/cpp/docker/api"
+    - "-Weverything"
+    - "-Wno-c++98-compat"
+    - "-pthread"
+    - "-std=c++2b"
