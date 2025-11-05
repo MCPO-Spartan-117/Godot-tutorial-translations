@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=4 uid="uid://o7rxx66u0j2w"]
 
-[ext_resource type="Script" uid="uid://dsry7gnbhpgq2" path="res://CPP/Main/Main.elf" id="2_272bh"]
+[ext_resource type="Script" uid="uid://calupybr28y4n" path="res://CPP/Main/Main.elf" id="2_272bh"]
 [ext_resource type="PackedScene" uid="uid://der21dg33n4g7" path="res://player.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://b07yyv7ig7ais" path="res://hud.tscn" id="4_1bvp3"]
 [ext_resource type="AudioStream" uid="uid://c5iqupofpdakd" path="res://art/gameover.wav" id="5_lquwl"]
@@ -55,7 +55,6 @@ color = Color(0.35311747, 0.00095173746, 0.5287964, 1)
 position = Vector2(240, 450)
 
 [node name="Player" parent="." instance=ExtResource("2_h2yge")]
-speed = 400.0
 
 [node name="StartTimer" type="Timer" parent="."]
 wait_time = 2.0

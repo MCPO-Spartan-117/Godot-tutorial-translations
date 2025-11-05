@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cdvgqgva31c3k" path="res://art/enemyFlyingAlt_1.png" id="1_b3mxk"]
 [ext_resource type="Texture2D" uid="uid://bcjw7ukd8svsk" path="res://art/enemyFlyingAlt_2.png" id="2_1qmh0"]
-[ext_resource type="Script" uid="uid://c3h5cmysg745y" path="res://CPP/Mobs/Mobs.elf" id="2_ieysi"]
+[ext_resource type="Script" uid="uid://0ly7a538ohcp" path="res://CPP/Mobs/Mobs.elf" id="2_ieysi"]
 [ext_resource type="Texture2D" uid="uid://blqyl3se7tsft" path="res://art/enemySwimming_1.png" id="3_gfurk"]
 [ext_resource type="Texture2D" uid="uid://b11y2svd3s38t" path="res://art/enemySwimming_2.png" id="4_ieysi"]
 [ext_resource type="Texture2D" uid="uid://dcxli725v7t5q" path="res://art/enemyWalking_1.png" id="5_cixyi"]
