@@ -14,3 +14,15 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# build
+/export_presets.cfg
+
+# cmake
+cmake
+
+# zig?
+/-
+
+# clangd
+/.clangd
