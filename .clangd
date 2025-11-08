@@ -1,0 +1,11 @@
+CompileFlags:
+  Add:
+    - "--gcc-toolchain=/usr"
+    - "-DCLANGD"
+    - "-IREPLACEMENT/deps/build"
+    - "-IREPLACEMENT/deps/godot-cpp/include"
+    - "-IREPLACEMENT/deps/godot-cpp/gen/include"
+    - "-Weverything"
+    - "-Wno-c++98-compat"
+    - "-pthread"
+    - "-std=c++2b"
