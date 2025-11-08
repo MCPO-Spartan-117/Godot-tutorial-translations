@@ -14,3 +14,22 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# build
+/export_presets.cfg
+
+# cmake
+cmake
+
+# zig?
+/-
+
+# clangd
+/.clangd
+
+# tempory files
+/deps/build/*
+
+# position dependent build artifacts
+.sconsign.dblite
+*.os
