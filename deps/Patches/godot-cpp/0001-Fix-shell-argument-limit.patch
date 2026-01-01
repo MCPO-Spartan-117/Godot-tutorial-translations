@@ -1,0 +1,89 @@
+# Taken from https://github.com/godotengine/godot-cpp/pull/1731 and modified for 4.5 branch
+# fixes having a long path to the git directory which makes compiling modules fail due to "sh: Argument list too long"
+
+From 5458596b064a5cf3b8d4ad49e1181fb009daba3a Mon Sep 17 00:00:00 2001
+From: ze2j <46556066+ze2j@users.noreply.github.com>
+Date: Thu, 6 Mar 2025 12:45:43 +0100
+Subject: [PATCH] Fix shell argument limit
+
+---
+ tools/common_compiler_flags.py |  3 +++
+ tools/godotcpp.py              | 31 ++++++++++++++++++++++++++++++-
+ 2 files changed, 33 insertions(+), 1 deletion(-)
+
+diff --git a/tools/common_compiler_flags.py b/tools/common_compiler_flags.py
+index e645f39..8c2976d 100644
+--- a/tools/common_compiler_flags.py
++++ b/tools/common_compiler_flags.py
+@@ -121,3 +121,6 @@ def generate(env):
+         elif env["lto"] == "full":
+             env.Append(CCFLAGS=["-flto"])
+             env.Append(LINKFLAGS=["-flto"])
++
++        if env["platform"] == "linux" or env.get("use_mingw", False):
++            env['ARFLAGS'] = "rcs"
+diff --git a/tools/godotcpp.py b/tools/godotcpp.py
+index 8931e6d..2b5456c 100644
+--- a/tools/godotcpp.py
++++ b/tools/godotcpp.py
+@@ -1,5 +1,6 @@
+ import os
+ import platform
++import tempfile
+ import sys
+ 
+ import header_builders
+@@ -162,6 +163,25 @@ def scons_generate_bindings(target, source, env):
+     return None
+ 
+ 
++def _build_static_lib_with_rsp(target, source, env):
++    target_lib = str(target[0])
++
++    with tempfile.NamedTemporaryFile(mode="w", suffix=".rsp", delete=False) as rsp_file:
++        rsp_path = rsp_file.name
++        for src in source:
++            rsp_file.write(str(src) + "\n")
++
++    try:
++        ar = env['AR']
++        arflags = env.get("ARFLAGS", "")
++        command = "{} {} {} @{}".format(ar, arflags, target_lib, rsp_path)
++        env.Execute(command)
++    finally:
++        os.remove(rsp_path)
++
++    return None
++
++
+ platforms = ["linux", "macos", "windows", "android", "ios", "web"]
+ 
+ # CPU architecture options.
+@@ -513,6 +533,9 @@ def generate(env):
+             ),
+         }
+     )
++    if env["platform"] == "linux" or env.get("use_mingw", False):
++        env.Append(BUILDERS={"GodotStaticLibRspBuilder": Builder(action=Action(_build_static_lib_with_rsp, "$ARCOMSTR"))})
++
+     env.AddMethod(_godot_cpp, "GodotCPP")
+ 
+ 
+@@ -547,7 +570,13 @@ def _godot_cpp(env):
+     library_name = "libgodot-cpp" + env["suffix"] + env["LIBSUFFIX"]
+ 
+     if env["build_library"]:
+-        library = env.StaticLibrary(target=env.File("bin/%s" % library_name), source=sources)
++        if env["platform"] == "linux" or env.get("use_mingw", False):
++            # Use a custom builder to aggregate object files into a static library using a temporary response file.
++            # This avoids hitting the shell argument limit.
++            library = env.GodotStaticLibRspBuilder(target=env.File("bin/%s" % library_name), source=env.Object(sources))
++        else:
++            library = env.StaticLibrary(target=env.File("bin/%s" % library_name), source=sources)
++
+         env.NoCache(library)
+         default_args = [library]
+ 
+-- 
+2.51.1
+

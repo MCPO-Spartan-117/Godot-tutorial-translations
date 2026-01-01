@@ -14,3 +14,26 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# build
+/export_presets.cfg
+
+# cmake
+cmake
+
+# zig?
+/-
+
+# clangd
+/.clangd
+
+# tempory files
+/deps/build/*
+/deps/godot-cpp
+
+# position dependent build artifacts
+.sconsign.dblite
+*.os
+
+# big file
+/CPP/Creep/bin/*template_debug*
